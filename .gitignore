@@ -1,0 +1,13 @@
+
+*.user
+*.avi
+*.srt
+*.bak
+*.doc
+*.suo
+*.sln.cache
+[bB]in/
+[oO]bj/
+*.xap
+_ReSharper.* 
+TestResults/

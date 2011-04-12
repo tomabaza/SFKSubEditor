@@ -1,0 +1,184 @@
+﻿<Window x:Class="SFKSubEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:extToolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit.Extended"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:c="clr-namespace:SFKSubEditor"
+        Title="SFKSubEditor" Height="Auto" Width="Auto" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="660" d:DesignWidth="815" SizeToContent="WidthAndHeight">
+    <Window.Resources>
+        <c:TimeConverter x:Key="TimeConverter" />
+        <c:FrameConverter x:Key="FrameConverter" />
+        <c:SubtitleConverter x:Key="SubtitleConverter" />
+        <c:SubtitleTimeLength x:Key="SubtitleTimeLength" />
+        <c:SubtitleFrameLength x:Key="SubtitleFrameLength" />
+    </Window.Resources>
+    <DockPanel Name="dockPanel1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Menu DockPanel.Dock="Top" Height="auto">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New">
+                    <MenuItem Header="_Original" ToolTip="New subtitles file" Command="c:MainWindowCommands.NewOriginalCommand" />
+                    <MenuItem Header="_Traslation" ToolTip="Add translation" Command="c:MainWindowCommands.NewTranslationCommand" />
+                </MenuItem>
+                <MenuItem Header="_Open">
+                    <MenuItem Header="_Project" ToolTip="Open existing project" Command="c:MainWindowCommands.OpenProjectCommand" />
+                    <Separator/>
+                    <MenuItem Header="_Original" ToolTip="Open original subtitles" Command="c:MainWindowCommands.OpenOriginalCommand"/>
+                    <MenuItem Header="_Traslation" ToolTip="Open traslation for original subtitles" Command="c:MainWindowCommands.OpenTranslationCommand"/>
+                </MenuItem>
+                <MenuItem Header="_Save">
+                    <MenuItem Header="_Project" ToolTip="Save existing project" Command="c:MainWindowCommands.SaveProjectCommand"/>
+                    <Separator/>
+                    <MenuItem Header="_Original" ToolTip="Save original subtitles" Command="c:MainWindowCommands.SaveOriginalCommand" />
+                    <MenuItem Header="_Traslation" ToolTip="Save traslation" Command="c:MainWindowCommands.SaveTranslationCommand"/>
+                </MenuItem>
+                <MenuItem Header="save _As">
+                    <MenuItem Header="_Project" ToolTip="Save existing project as new file" Command="c:MainWindowCommands.SaveAsProjectCommand" />
+                    <Separator/>
+                    <MenuItem Header="_Original" ToolTip="Save original subtitles as new file" Command="c:MainWindowCommands.SaveAsOriginalCommand" />
+                    <MenuItem Header="_Traslation" ToolTip="Save traslation as new file" Command="c:MainWindowCommands.SaveAsTranslationCommand" />
+                </MenuItem>
+                <MenuItem Header="_Close" ToolTip="Close all open files" Command="c:MainWindowCommands.CloseCommand"/>
+                <MenuItem Header="_Exit" ToolTip="Exit application" Command="c:MainWindowCommands.ExitCommand" />
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="Undo" Command="Undo" />
+                <MenuItem Header="Redo" Command="Redo" />
+                <Separator />
+                <MenuItem Header="Cut" Command="Cut" />
+                <MenuItem Header="Copy" Command="Copy" />
+                <MenuItem Header="Paste" Command="Paste" />
+                <Separator />
+                <MenuItem Header="Insert subtitle">
+                    <MenuItem Header="Before" ToolTip="Insert subtitle before current subtitle" />
+                    <MenuItem Header="After" ToolTip="Insert subtitle after current subtitle" />
+                    <MenuItem Header="Into traslatinon befor" ToolTip="Insert subtitle into translation before current subtitle" />
+                    <MenuItem Header="Into traslatinon after" ToolTip="Insert subtitle into translation after current subtitle" />
+                </MenuItem>
+                <MenuItem Header="Change encoding">
+                    <MenuItem Header="Original" ToolTip="Change encoding for original" />
+                    <MenuItem Header="Translation" ToolTip="Change encoding for translation" />
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Subtitle">
+                <MenuItem Header="Join" ToolTip="Join selected subtitles" />
+                <MenuItem Header="Split" ToolTip="Split curent subtitle" />
+                <MenuItem Header="Start decrease" ToolTip="Decrease start of the current subtitle"/>
+                <MenuItem Header="Start increase" ToolTip="Increase start of the current subtitle" />
+                <MenuItem Header="End decrease" ToolTip="Decrease end of the current subtitle"/>
+                <MenuItem Header="End increase" ToolTip="Increase end of the current subtitle" />
+                <MenuItem Header="To previous" ToolTip="Prolong subtitle to the end of previous subtitle" />
+                <MenuItem Header="To next" ToolTip="Prolog subtitle to the beginning of next subtitle" />
+                <MenuItem Header="Length" ToolTip="Change length accoridng to the number of letters in the subtitle" />
+            </MenuItem>
+            <MenuItem Header="_Video">
+                <MenuItem Header="_Open video" ToolTip="Open video file" Command="c:MainWindowCommands.OpenVideoCommand" />
+                <MenuItem Header="_Close video" ToolTip="Close video file" Command="c:MainWindowCommands.CloseVideoCommand" />
+                <MenuItem Header="Show subtitles">
+                    <MenuItem Header="Original" ToolTip="Show original in the video" />
+                    <MenuItem Header="Translation" ToolTip="Show translation in the video" />
+                    <MenuItem Header="From file" ToolTip="Show subtitles from another file" />
+                </MenuItem>
+                <MenuItem Header="Play/Pause" ToolTip="Start playing, pause playing, continue playing" 
+                          Command="c:MainWindowCommands.VideoPlayCommand" />
+                <MenuItem Header="Stop" ToolTip="Stop playing" 
+                          Command="c:MainWindowCommands.VideoStopCommand" />
+                <MenuItem Header="Forward" ToolTip="Skip forward"
+                          Command="c:MainWindowCommands.VideoForwardCommand" />
+                <MenuItem Header="Backward" ToolTip="Skip backward" 
+                          Command="c:MainWindowCommands.VideoBackwardCommand" />
+                <MenuItem Header="More forward" ToolTip="Skip more forward" 
+                          Command="c:MainWindowCommands.VideoMoreForwardCommand" />
+                <MenuItem Header="More backward" ToolTip="Skip more backward"
+                          Command="c:MainWindowCommands.VideoMoreForwardCommand" />
+                <MenuItem Header="Previous subtitle" ToolTip="Skip video to the beginning of the previous subtitle" 
+                          />
+                <MenuItem Header="Next subtitle" ToolTip="Skip video to the beginning of the next subtitle" 
+                          />
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="About" />
+            </MenuItem>
+        </Menu>
+        <StatusBar DockPanel.Dock="Bottom" Height="30">
+            <Label Content="Status bar" Name="statusBarLabel" />
+        </StatusBar>
+        <Grid DockPanel.Dock="Top" Height="574" Width="751">
+
+            <MediaElement Height="330" HorizontalAlignment="Stretch" Name="video" 
+                          VerticalAlignment="Top" Width="auto" LoadedBehavior="Manual" 
+                          MediaFailed="OnMediaFailed" MediaOpened="video_Loaded"/>
+            
+            <DataGrid AutoGenerateColumns="False" Height="138" HorizontalAlignment="Center" Margin="20,296,0,0"
+                      Name="dataGrid1" VerticalAlignment="Stretch" Width="Auto" MouseDoubleClick="tableDoubleClick" 
+                      >        
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Path=FrameBegin}" Header="Begin" CanUserSort="False" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=FrameEnd}" Header="End" CanUserSort="False" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=TimeBegin, Converter={StaticResource TimeConverter}}" Header="Begin" CanUserSort="False" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=TimeEnd, Converter={StaticResource TimeConverter}}" Header="End" CanUserSort="False" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=Original}" Header="Original" CanUserSort="False" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=Translation}" Header="Translation" CanUserSort="False" IsReadOnly="True" />
+                </DataGrid.Columns>     
+            </DataGrid>
+            
+            <TextBox Height="46" HorizontalAlignment="Center" Margin="143,0,318,21" Name="originalText" VerticalAlignment="Bottom" 
+                 Width="290" Text="{Binding ElementName=dataGrid1, Path=SelectedValue.Original, Converter={StaticResource SubtitleConverter}, Mode=TwoWay}"
+                 TextWrapping="Wrap" AcceptsReturn="True" KeyDown="originalText_KeyDown" />
+            <TextBox Height="46" HorizontalAlignment="Center" Margin="439,0,22,21" Name="translationText" VerticalAlignment="Bottom" 
+                 Width="290" Text="{Binding ElementName=dataGrid1, Path=SelectedValue.Translation, Converter={StaticResource SubtitleConverter}, Mode=TwoWay}"
+                 TextWrapping="Wrap" AcceptsReturn="True" KeyDown="translationText_KeyDown" />
+            
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="12,404,0,0" Name="timeBeginEdit" VerticalAlignment="Top" Width="120" 
+                 Text="{Binding ElementName=dataGrid1, Path=SelectedValue.TimeBegin, Converter={StaticResource TimeConverter}}" />
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="12,447,0,0" Name="timeEndEdit" VerticalAlignment="Top" Width="120" 
+                 Text="{Binding ElementName=dataGrid1, Path=SelectedValue.TimeEnd, Converter={StaticResource TimeConverter}}" />
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="12,492,0,0" Name="timeLength" VerticalAlignment="Top" Width="120" IsReadOnly="True">
+                <TextBox.Text>
+                    <MultiBinding Converter="{StaticResource SubtitleTimeLength}" >
+                        <Binding ElementName="dataGrid1" Path="SelectedValue.TimeBegin" />
+                        <Binding ElementName="dataGrid1" Path="SelectedValue.TimeEnd" />
+                    </MultiBinding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="12,404,0,0" Name="frameBeginEdit" VerticalAlignment="Top" Width="120" 
+                 Text="{Binding ElementName=dataGrid1, Path=SelectedValue.FrameBegin, Converter={StaticResource FrameConverter}}" />
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="12,447,0,0" Name="frameEndEdit" VerticalAlignment="Top" Width="120" 
+                 Text="{Binding ElementName=dataGrid1, Path=SelectedValue.FrameEnd, Converter={StaticResource FrameConverter}}" />
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="12,492,0,0" Name="frameLength" VerticalAlignment="Top" Width="120" IsReadOnly="True">
+                <TextBox.Text>
+                    <MultiBinding Converter="{StaticResource SubtitleFrameLength}" >
+                        <Binding ElementName="dataGrid1" Path="SelectedValue.FrameBegin" />
+                        <Binding ElementName="dataGrid1" Path="SelectedValue.FrameEnd" />
+                    </MultiBinding>
+                </TextBox.Text>
+            </TextBox>
+            <Button Content="&lt;&lt;" Height="23" HorizontalAlignment="Left" Margin="20,299,0,0" Name="buttonMoreBackward" 
+                    VerticalAlignment="Top" Width="75" Command="c:MainWindowCommands.VideoMoreBackwardCommand" />
+            <Button Content="&lt;" Height="23" HorizontalAlignment="Left" Margin="101,299,0,0" Name="buttonBackward" 
+                    VerticalAlignment="Top" Width="75" Command="c:MainWindowCommands.VideoBackwardCommand" />
+            <Button Content="Stop" Height="23" HorizontalAlignment="Right" Margin="0,299,494,0" Name="buttonStop" 
+                    VerticalAlignment="Top" Width="75" Command="c:MainWindowCommands.VideoStopCommand" />
+            <Button Content="Play/Pause" Height="23" HorizontalAlignment="Left" Margin="263,299,0,0" 
+                    Name="buttonPlay" VerticalAlignment="Top" Width="75" Command="c:MainWindowCommands.VideoPlayCommand" />
+            <Button Content=">" Height="23" HorizontalAlignment="Left" Margin="344,299,0,0" Name="buttonForward" 
+                    VerticalAlignment="Top" Width="75" Command="c:MainWindowCommands.VideoForwardCommand" />
+            <Button Content=">>" Height="23" HorizontalAlignment="Left" Margin="425,298,0,0" Name="buttonMoreForward" 
+                    VerticalAlignment="Top" Width="75" Command="c:MainWindowCommands.VideoMoreForwardCommand" />
+            
+            <Slider Height="23" HorizontalAlignment="Left" Margin="20,272,0,0" Name="timelineSlider" VerticalAlignment="Top" Width="406" 
+                    ValueChanged="SeekToMediaPosition" Maximum="100" />
+            <Label Content="00:00:00,000" Height="28" HorizontalAlignment="Right" Margin="0,267,88,0" Name="currentTimePosition"
+                   VerticalAlignment="Top" />
+            <Label Content="00:00:00,000" Height="28" HorizontalAlignment="Right" Margin="0,267,6,0" Name="lenghtTime"
+                   VerticalAlignment="Top" />
+            <Label Content="0000000" Height="28" HorizontalAlignment="Right" Margin="0,267,88,0" Name="currentFramePosition"
+                   VerticalAlignment="Top" />
+            <Label Content="0000000" Height="28" HorizontalAlignment="Right" Margin="0,267,6,0" Name="lenghtFrame"
+                   VerticalAlignment="Top" />
+            <Label Content="Label dd dfdsfd sffadsfadsfasdf" Height="28" HorizontalAlignment="Left" Margin="20,81,0,0" Name="label2" VerticalAlignment="Top" Width="390" Panel.ZIndex="6" Foreground="#FFC42B2B" />
+            <Button Content="&lt;-" Height="23" HorizontalAlignment="Left" Margin="506,298,0,0" Name="skipPreviousSub" VerticalAlignment="Top" Width="75" />
+            <Button Content="->" Height="23" HorizontalAlignment="Left" Margin="587,298,0,0" Name="skipNextSub" VerticalAlignment="Top" Width="75" />
+        </Grid>
+        
+    </DockPanel>
+</Window>
