@@ -78,12 +78,12 @@
     <Compile Include="FileSrt.cs" />
     <Compile Include="FileSub.cs" />
     <Compile Include="FileSubtitle.cs" />
-    <Compile Include="FileSubtitleAction.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Subtitles.cs" />
     <Compile Include="MainWindowUseCommmand.cs" />
     <Compile Include="MainWindowCommands.cs" />
     <Compile Include="SubtitleFile.cs" />
+    <Compile Include="WrongSubtitleFormatException.cs" />
     <Page Include="ChoiceEncodingWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

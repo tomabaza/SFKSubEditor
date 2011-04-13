@@ -40,7 +40,7 @@ namespace SFKSubEditor
         /// <param name="encoding">Encoding of file.</param>
         /// <param name="subAList">List for adding subtitles.</param>
         /// <returns>Result of the reading. NULL - everything is OK.</returns>
-        SubtitlesStatus ReadSubFile(String fileName, Encoding fileEncoding,BindingList<Subtitle> subList);
+        void ReadSubFile(String fileName, Encoding fileEncoding,BindingList<Subtitle> subList);
 
         /// <summary>
         /// Write subtitles to the file.

@@ -56,11 +56,11 @@ namespace SFKSubEditor
         /// <param name="encoding">Encoding of file.</param>
         /// <param name="subAList">List for adding subtitles.</param>
         /// <returns>Result of the reading. NULL - everything is OK.</returns>
-        SubtitlesStatus ISubFile.ReadSubFile(String fileName, Encoding fileEncoding, BindingList<Subtitle> subList)
+        void ISubFile.ReadSubFile(String fileName, Encoding fileEncoding, BindingList<Subtitle> subList)
         {
             if (!File.Exists(fileName))
             {
-                return (new SubtitlesStatus(false, "File " + fileName + " does not exists"));
+                throw new WrongSubtitleFormatException("File " + fileName + " does not exists");
             }
             using (StreamReader sr = new StreamReader(fileName, fileEncoding))
             {
@@ -73,8 +73,8 @@ namespace SFKSubEditor
                 {
                     // line allways starts with {
                     if (input[0] != '{')
-                    { 
-                        return (new SubtitlesStatus(false,"Wrong subtitle at line " + i + 1));
+                    {
+                        throw new WrongSubtitleFormatException("Wrong subtitle at line " + i + 1);
                     }
                     String[] parts = input.Split('}');
                     try
@@ -90,12 +90,12 @@ namespace SFKSubEditor
                         }
                     }
                     catch (System.FormatException)
-                    { 
-                        return (new SubtitlesStatus(false, "Wrong subtitle at line " + i + 1));
+                    {
+                        throw new WrongSubtitleFormatException("Wrong subtitle at line " + i + 1);
                     }
                     catch (System.OverflowException)
                     {
-                        return (new SubtitlesStatus(false, "Wrong subtitle at line " + (i + 1)));
+                        throw new WrongSubtitleFormatException("Wrong subtitle at line " + i + 1);
                     }
                     if (i > 0 || (beg != end))
                     {
@@ -105,7 +105,6 @@ namespace SFKSubEditor
                     i++;
                 }               
             }
-            return (null);
         }
        
         /// <summary>
