@@ -28,16 +28,6 @@ namespace SFKSubEditor
         /// </summary>
         private void showColumns()
         {
-            if (originalFile.SubFile.SubtitleType == Subtitles.SubtitleTimeTypes.Frame)
-            {
-                setTimeVisibility(Visibility.Hidden);
-                setFrameVisibility(Visibility.Visible);
-            }
-            else
-            {
-                setFrameVisibility(Visibility.Hidden);
-                setTimeVisibility(Visibility.Visible);
-            }
             DataGridColumn translation = dataGrid1.ColumnFromDisplayIndex(5);
             if (translationFile != null)
             {
@@ -50,31 +40,6 @@ namespace SFKSubEditor
                 translationText.Visibility = Visibility.Hidden;
             }
 
-        }
-        private void setFrameVisibility(Visibility vis)
-        {
-            DataGridColumn frameBegin = dataGrid1.ColumnFromDisplayIndex(0);
-            DataGridColumn frameEnd = dataGrid1.ColumnFromDisplayIndex(1);
-            frameBegin.Visibility = vis;
-            frameEnd.Visibility = vis;
-            lenghtFrame.Visibility = vis;
-            currentFramePosition.Visibility = vis;
-            frameBeginEdit.Visibility = vis;
-            frameEndEdit.Visibility = vis;
-            frameLength.Visibility = vis;
-
-        }
-        private void setTimeVisibility(Visibility vis)
-        {
-            DataGridColumn timeBegin = dataGrid1.ColumnFromDisplayIndex(2);
-            DataGridColumn timeEnd = dataGrid1.ColumnFromDisplayIndex(3);
-            timeBegin.Visibility = vis;
-            timeEnd.Visibility = vis;
-            lenghtTime.Visibility = vis;
-            currentTimePosition.Visibility = vis;
-            timeBeginEdit.Visibility = vis;
-            timeEndEdit.Visibility = vis;
-            timeLength.Visibility = vis;
         }
         /// <summary>
         /// Try to look for a video file in the current diretory.

@@ -68,6 +68,7 @@ namespace SFKSubEditor
                 int i = 0;
                 int beg = 0;
                 int end = 0;
+                float unit = 1000 / FrameRate;
                 String sub = null;
                 while ((input = sr.ReadLine()) != null)
                 {
@@ -99,7 +100,7 @@ namespace SFKSubEditor
                     }
                     if (i > 0 || (beg != end))
                     {
-                        subList.Add(new Subtitle(beg,end,sub));
+                        subList.Add(new Subtitle(frameToTimeSpan(beg, FrameRate, unit), frameToTimeSpan(end, FrameRate, unit), sub));
                     }
                     // line count - only for bad line
                     i++;
@@ -116,7 +117,7 @@ namespace SFKSubEditor
         /// <param name="subAList">List with subtitles.</param>
         void ISubFile.WriteSubFile(String fileName, Encoding fileEncoding, BindingList<Subtitle> subList, SubtitlesFile.WhichText what)
         {
-
+            float unit = 1000 / FrameRate;
             using (StreamWriter sw = new StreamWriter(fileName, false, fileEncoding,32000))
             {
                 // first line of the file is famerate - begin and end is 1
@@ -124,11 +125,33 @@ namespace SFKSubEditor
                 foreach (Subtitle sub in subList)
                 {
                     if (what == SubtitlesFile.WhichText.Original)
-                        sw.WriteLine("{" + sub.FrameBegin + "}{" + sub.FrameEnd + "}" + sub.Original);
+                        sw.WriteLine("{" + timeSpanToFrame(sub.TimeBegin, FrameRate, unit) + "}{" + timeSpanToFrame(sub.TimeEnd, FrameRate, unit) + "}" + sub.Original);
                     else
-                        sw.WriteLine("{" + sub.FrameBegin + "}{" + sub.FrameEnd + "}" + sub.Translation);
+                        sw.WriteLine("{" + timeSpanToFrame(sub.TimeBegin, FrameRate, unit) + "}{" + timeSpanToFrame(sub.TimeEnd, FrameRate, unit) + "}" + sub.Translation);
                 }
             }
+        }
+
+        /// <summary>
+        /// Convert frame to TimeSpan.
+        /// </summary>
+        /// <param name="frame">frame</param>
+        /// <returns>frame converted to TimeSpan.</returns>
+        private static TimeSpan frameToTimeSpan(int frame, float fr, float unit)
+        {
+            int mili = (int)Math.Round(frame * unit);
+            TimeSpan time = new TimeSpan(0, 0, 0, 0, mili);
+            return (time);
+        }
+        /// <summary>
+        /// Convert TimeSpan to frame.
+        /// </summary>
+        /// <param name="time">timeSpan</param>
+        /// <returns>frame</returns>
+        private static int timeSpanToFrame(TimeSpan time, float fr, float unit)
+        {   
+            int frame = (int)Math.Round(time.Hours * 3600 * fr + time.Minutes * 60 * fr + time.Seconds * fr + time.Milliseconds / unit);
+            return (frame);
         }
     }
 }

@@ -286,36 +286,4 @@ namespace SFKSubEditor
             return (null);
         }
     }
-    [ValueConversion(typeof(int), typeof(string))]
-    public class FrameConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            int frame = (int)value;
-            return (frame.ToString());
-        }
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            String s = (String)value;
-            return (int.Parse(s));
-        }
-    }
-    [ValueConversion(typeof(int), typeof(string))]
-    public class SubtitleFrameLength : IMultiValueConverter
-    {
-        public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            if (values[0] == DependencyProperty.UnsetValue || values[1] == DependencyProperty.UnsetValue)
-                return (values);
-
-            int begin = (int)values[0];
-            int end = (int)values[1];
-            int len = end - begin;
-            return (len.ToString());
-        }
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
-        {
-            return (null);
-        }
-    }
 }

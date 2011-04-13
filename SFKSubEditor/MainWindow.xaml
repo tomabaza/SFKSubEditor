@@ -7,10 +7,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="660" d:DesignWidth="815" SizeToContent="WidthAndHeight">
     <Window.Resources>
         <c:TimeConverter x:Key="TimeConverter" />
-        <c:FrameConverter x:Key="FrameConverter" />
         <c:SubtitleConverter x:Key="SubtitleConverter" />
         <c:SubtitleTimeLength x:Key="SubtitleTimeLength" />
-        <c:SubtitleFrameLength x:Key="SubtitleFrameLength" />
     </Window.Resources>
     <DockPanel Name="dockPanel1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Menu DockPanel.Dock="Top" Height="auto">
@@ -112,8 +110,6 @@
                       Name="dataGrid1" VerticalAlignment="Stretch" Width="Auto" MouseDoubleClick="tableDoubleClick" 
                       >        
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=FrameBegin}" Header="Begin" CanUserSort="False" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Path=FrameEnd}" Header="End" CanUserSort="False" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Path=TimeBegin, Converter={StaticResource TimeConverter}}" Header="Begin" CanUserSort="False" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Path=TimeEnd, Converter={StaticResource TimeConverter}}" Header="End" CanUserSort="False" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Path=Original}" Header="Original" CanUserSort="False" IsReadOnly="True" />
@@ -137,18 +133,6 @@
                     <MultiBinding Converter="{StaticResource SubtitleTimeLength}" >
                         <Binding ElementName="dataGrid1" Path="SelectedValue.TimeBegin" />
                         <Binding ElementName="dataGrid1" Path="SelectedValue.TimeEnd" />
-                    </MultiBinding>
-                </TextBox.Text>
-            </TextBox>
-            <TextBox Height="23" HorizontalAlignment="Left" Margin="12,404,0,0" Name="frameBeginEdit" VerticalAlignment="Top" Width="120" 
-                 Text="{Binding ElementName=dataGrid1, Path=SelectedValue.FrameBegin, Converter={StaticResource FrameConverter}}" />
-            <TextBox Height="23" HorizontalAlignment="Left" Margin="12,447,0,0" Name="frameEndEdit" VerticalAlignment="Top" Width="120" 
-                 Text="{Binding ElementName=dataGrid1, Path=SelectedValue.FrameEnd, Converter={StaticResource FrameConverter}}" />
-            <TextBox Height="23" HorizontalAlignment="Left" Margin="12,492,0,0" Name="frameLength" VerticalAlignment="Top" Width="120" IsReadOnly="True">
-                <TextBox.Text>
-                    <MultiBinding Converter="{StaticResource SubtitleFrameLength}" >
-                        <Binding ElementName="dataGrid1" Path="SelectedValue.FrameBegin" />
-                        <Binding ElementName="dataGrid1" Path="SelectedValue.FrameEnd" />
                     </MultiBinding>
                 </TextBox.Text>
             </TextBox>
