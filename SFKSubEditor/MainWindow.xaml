@@ -155,10 +155,6 @@
                    VerticalAlignment="Top" />
             <Label Content="00:00:00,000" Height="28" HorizontalAlignment="Right" Margin="0,267,6,0" Name="lenghtTime"
                    VerticalAlignment="Top" />
-            <Label Content="0000000" Height="28" HorizontalAlignment="Right" Margin="0,267,88,0" Name="currentFramePosition"
-                   VerticalAlignment="Top" />
-            <Label Content="0000000" Height="28" HorizontalAlignment="Right" Margin="0,267,6,0" Name="lenghtFrame"
-                   VerticalAlignment="Top" />
             <Label Content="Label dd dfdsfd sffadsfadsfasdf" Height="28" HorizontalAlignment="Left" Margin="20,81,0,0" Name="label2" VerticalAlignment="Top" Width="390" Panel.ZIndex="6" Foreground="#FFC42B2B" />
             <Button Content="&lt;-" Height="23" HorizontalAlignment="Left" Margin="506,298,0,0" Name="skipPreviousSub" VerticalAlignment="Top" Width="75" />
             <Button Content="->" Height="23" HorizontalAlignment="Left" Margin="587,298,0,0" Name="skipNextSub" VerticalAlignment="Top" Width="75" />

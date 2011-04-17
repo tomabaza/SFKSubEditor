@@ -88,6 +88,7 @@ namespace SFKSubEditor
                         {
                             // In Czech windows there is decimal delimiter ",". Therefore CultureInfo.
                             FrameRate = float.Parse(sub, new CultureInfo("en-US"));
+                            unit = 1000 / FrameRate;
                         }
                     }
                     catch (System.FormatException)

@@ -28,7 +28,7 @@ namespace SFKSubEditor
         /// </summary>
         private void showColumns()
         {
-            DataGridColumn translation = dataGrid1.ColumnFromDisplayIndex(5);
+            DataGridColumn translation = dataGrid1.ColumnFromDisplayIndex(3);
             if (translationFile != null)
             {
                 translation.Visibility = Visibility.Visible;

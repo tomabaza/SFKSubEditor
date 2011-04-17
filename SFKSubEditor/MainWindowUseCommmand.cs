@@ -171,7 +171,8 @@ namespace SFKSubEditor
                originalFile = newOriginalFile;
                subtitleList = originalFile.fileOpen(subtitleList);               
                videoFile = getVideoFileFromSubtitle(originalFile.FileName);
-               video.Source = new Uri(videoFile, UriKind.Relative);
+               if (videoFile != null)
+                    video.Source = new Uri(videoFile, UriKind.Relative);
                showColumns();
            }
        }
